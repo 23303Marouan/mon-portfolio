@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { isAdmin } from '../services/config';
 
 import Tache from '../components/tache';
 import Tacheform from '../components/tacheform';
 
 export default function Taches() {
-  const [taches, setTaches] = useState([
-    { id: 1, name: 'pomme' },
-    { id: 2, name: 'banane' },
-    { id: 3, name: 'orange' }
-  ]);
+  const [taches, setTaches] = useState(() => {
+    const saved = localStorage.getItem("taches");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+    // 2. À chaque changement de "taches", on sauvegarde
+  useEffect(() => {
+    localStorage.setItem("taches", JSON.stringify(taches));
+  }, [taches]);
 
   const deleteTodo = (id) => {
     setTaches(taches.filter((tache) => tache.id !== id));
@@ -22,18 +27,20 @@ export default function Taches() {
     <main className="container">
       <h1>Liste des taches</h1>
 
-      <ul>
-        {taches.map((todo) => (
-          <Tache
-            key={todo.id}
-            name={todo.name}
-            id={todo.id}
-            deleteTache={deleteTodo}
-          />
-        ))}
-      </ul>
+    <ul>
+      {taches.map((todo) => (
+        <Tache
+          key={todo.id}
+          name={todo.name}
+          id={todo.id}
+          deleteTache={deleteTodo}
+          isAdmin={isAdmin}
+        />
+      ))}
+    </ul>
 
-      <Tacheform addTache={addTodo} />
+    {isAdmin && <Tacheform addTache={addTodo} />}
+
     </main>
   );
 }
