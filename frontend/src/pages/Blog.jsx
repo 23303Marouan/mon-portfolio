@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import TaskForm from '../components/taskForm';
 import TaskList from '../components/taskList';
 import ThemeList from '../components/themeList';
+import { isAdmin } from '../services/config';
 
 import {
   addTask,
@@ -49,7 +50,7 @@ function Blog() {
   }, []);
 
   // false = visiteur / true = administrateur
-  const isAdmin = true;
+  // const isAdmin = true;
 
   // Ajouter ou modifier une tâche
   async function handleAdd({ text, theme }) {

@@ -1,7 +1,9 @@
-export default function Tache({ name, id, deleteTache }) {
+import { isAdmin } from '../services/config';
+export default function Tache({ name, id, deleteTache, isAdmin }) {
   return (
     <li>
-      {name} <button onClick={() => deleteTache(id)}>X</button>
+      {name}
+      {isAdmin && <button onClick={() => deleteTache(id)}>X</button>}
     </li>
   );
 }

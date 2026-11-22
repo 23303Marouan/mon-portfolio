@@ -1,2 +1,5 @@
 // Adresse du backend. En production, définir VITE_API_URL dans frontend/.env.production
 export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
+// false = visiteur / true = administrateur
+export const isAdmin = false;
