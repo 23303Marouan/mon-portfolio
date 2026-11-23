@@ -8,6 +8,98 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* BOUTON MENU */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 80;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-h);
+}
+
+/* FOND SOMBRE */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 90;
+}
+
+.overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* PANNEAU LATÉRAL */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  background: black;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+/* BOUTON FERMER */
+.drawer-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+/* LIENS EN VERTICAL */
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drawer-nav a,
+.drawer-nav a:link,
+.drawer-nav a:visited {
+  display: block;
+  padding: 12px 16px;
+  text-align: left;
+  text-decoration: none;
+  color: grey;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.drawer-nav a:hover {
+  color: white;
+  background: #333;
+}
+
+.drawer-nav a.active {
+  color: white;
+  background: #8b5cf6;
+}
+
+/* TÂCHES */
 .task {
   display: flex;
   justify-content: space-between;
@@ -139,10 +231,11 @@
   gap: 4px;
 }
 
-.nav a {
+.nav a,
+.nav a:link,
+.nav a:visited {
   flex: 1;
   padding: 10px 0;
-  border-spacing: 100px;
   text-align: center;
   text-decoration: none;
   color: grey;

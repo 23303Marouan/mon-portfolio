@@ -1,4 +1,3 @@
-import { isAdmin } from '../services/config';
 export default function Tache({ name, id, deleteTache, isAdmin }) {
   return (
     <li>

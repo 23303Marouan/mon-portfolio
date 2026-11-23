@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from 'react';
 
 import TaskForm from '../components/taskForm';
 import TaskList from '../components/taskList';
 import ThemeList from '../components/themeList';
-import { isAdmin } from '../services/config';
+import { useAuth } from '../context/AuthContext';
 
 import {
   addTask,
@@ -20,9 +19,12 @@ import {
 } from '../services/themeService';
 
 function Blog() {
+  const { isAdmin } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [themes, setThemes] = useState([]);
   const [taskToEdit, setTaskToEdit] = useState(null);
+
+  // ... tout le reste de ton fichier reste identique ...
 
   // Charger les thèmes et les tâches depuis PostgreSQL
   useEffect(() => {
