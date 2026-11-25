@@ -1,7 +1,15 @@
+import type { TaskWithTheme } from '../types';
 
-function TaskList({ tasks, onDelete, onModif, isAdmin }) {
+type TaskListProps = {
+  tasks: TaskWithTheme[];
+  onDelete: (id: number) => void;
+  onModif: (task: TaskWithTheme) => void;
+  isAdmin: boolean;
+};
+
+function TaskList({ tasks, onDelete, onModif, isAdmin }: TaskListProps) {
   return (
-    <div >
+    <div>
       {tasks.map((task) => (
         <p key={task.id}>
           {task.theme} - {task.title}

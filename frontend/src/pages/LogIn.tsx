@@ -7,9 +7,9 @@ const PWD = 'Marouan';
 
 export default function LogIn() {
   const { isAdmin, setIsAdmin } = useAuth();
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
-  const handleLogin = (id, pwd) => {
+  const handleLogin = (id: string, pwd: string) => {
     if (id === ID && pwd === PWD) {
       setIsAdmin(true);
       setError("");

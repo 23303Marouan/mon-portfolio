@@ -4,6 +4,7 @@ import TaskForm from '../components/taskForm';
 import TaskList from '../components/taskList';
 import ThemeList from '../components/themeList';
 import { useAuth } from '../context/AuthContext';
+import type { Theme, TaskWithTheme } from '../types';
 
 import {
   addTask,
@@ -20,11 +21,9 @@ import {
 
 function Blog() {
   const { isAdmin } = useAuth();
-  const [tasks, setTasks] = useState([]);
-  const [themes, setThemes] = useState([]);
-  const [taskToEdit, setTaskToEdit] = useState(null);
-
-  // ... tout le reste de ton fichier reste identique ...
+  const [tasks, setTasks] = useState<TaskWithTheme[]>([]);
+  const [themes, setThemes] = useState<Theme[]>([]);
+  const [taskToEdit, setTaskToEdit] = useState<TaskWithTheme | null>(null);
 
   // Charger les thèmes et les tâches depuis PostgreSQL
   useEffect(() => {
@@ -37,7 +36,7 @@ function Blog() {
 
         setThemes(themesData);
 
-        const formattedTasks = tasksData.map(task => ({
+        const formattedTasks: TaskWithTheme[] = tasksData.map(task => ({
           ...task,
           theme: themesData.find(t => t.id === task.themeId)?.title || ""
         }));
@@ -51,11 +50,8 @@ function Blog() {
     loadData();
   }, []);
 
-  // false = visiteur / true = administrateur
-  // const isAdmin = true;
-
   // Ajouter ou modifier une tâche
-  async function handleAdd({ text, theme }) {
+  async function handleAdd({ text, theme }: { text: string; theme: string }) {
     try {
       const themeTitle = theme.trim();
 
@@ -66,7 +62,8 @@ function Blog() {
       // Créer le thème s'il n'existe pas
       if (themeTitle && !themeData) {
         themeData = await addTheme(themeTitle);
-        setThemes(current => [...current, themeData]);
+        const created = themeData;
+        setThemes(current => [...current, created]);
       }
 
       const themeId = themeData?.id ?? null;
@@ -101,7 +98,7 @@ function Blog() {
   }
 
   // Supprimer une tâche
-  async function handleDelete(id) {
+  async function handleDelete(id: number) {
     try {
       await deleteTask(id);
       setTasks(current => current.filter(task => task.id !== id));
@@ -111,7 +108,7 @@ function Blog() {
   }
 
   // Supprimer un thème
-  async function handleDeleteTheme(id) {
+  async function handleDeleteTheme(id: number) {
     try {
       await deleteTheme(id);
       setThemes(current => current.filter(theme => theme.id !== id));
@@ -129,7 +126,7 @@ function Blog() {
   }
 
   // Modifier une tâche
-  function handleModif(task) {
+  function handleModif(task: TaskWithTheme) {
     setTaskToEdit(task);
   }
 

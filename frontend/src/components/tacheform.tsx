@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
+import type { Tache } from '../types';
 
-export default function Tacheform({ addTache }) {
-  const [newTache, setNewTache] = useState("");
+type TacheformProps = {
+  addTache: (tache: Tache) => void;
+};
 
-  const handleSubmit = (event) => {
+export default function Tacheform({ addTache }: TacheformProps) {
+  const [newTache, setNewTache] = useState<string>("");
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (newTache.trim() === "") return;

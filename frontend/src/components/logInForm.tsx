@@ -1,10 +1,15 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 
-export default function LogInForm({ onLogin }) {
-  const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
+type LogInFormProps = {
+  onLogin: (id: string, pwd: string) => void;
+};
 
-  const handleSubmit = (e) => {
+export default function LogInForm({ onLogin }: LogInFormProps) {
+  const [id, setId] = useState<string>("");
+  const [pwd, setPwd] = useState<string>("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onLogin(id, pwd);
   };

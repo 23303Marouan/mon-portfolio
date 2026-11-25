@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { User } from 'lucide-react';
+import { MailPen } from 'lucide-react';
+import '@flaticon/flaticon-uicons/css/brands/all.css';
 
 export default function Settings() {
   const [open, setOpen] = useState(false);
@@ -32,15 +35,15 @@ export default function Settings() {
         <ul className="drawer-nav">
           <li>
             <NavLink to="/login" onClick={() => setOpen(false)}>
-              Se connecter
+              <User /> Se connecter
             </NavLink>
           </li>
           <li>
-            <a href="mailto:23303@ecam.be">E-mail</a>
+             <a href="mailto:23303@ecam.be"><MailPen /> E-mail</a>
           </li>
           <li>
             <a href="https://discord.com/users/TON_ID" target="_blank" rel="noreferrer">
-              Discord
+               <i className="fi fi-brands-discord"></i> Discord
             </a>
           </li>
         </ul>

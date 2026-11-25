@@ -1,19 +1,22 @@
-
 import { useState } from 'react';
+import type { Theme } from '../types';
 
+type ThemeListProps = {
+  themes: Theme[];
+  onDelete: (id: number) => void;
+};
 
-
-function ThemeList({ themes, onDelete }) {
-  const [isOpen, setIsOpen] = useState(false);
+function ThemeList({ themes, onDelete }: ThemeListProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div>
-      <button  className="viewThemes" onClick={() => setIsOpen(!isOpen)}>
+      <button className="viewThemes" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "Masquer les thèmes" : "Afficher les thèmes"}
       </button>
-      
-      <br /> 
-      <br />  
+
+      <br />
+      <br />
 
       {isOpen && (
         <div>
@@ -24,7 +27,6 @@ function ThemeList({ themes, onDelete }) {
               <button className="deletTheme" onClick={() => onDelete(theme.id)}>
                 Supprimer
               </button>
-
             </p>
           ))}
         </div>

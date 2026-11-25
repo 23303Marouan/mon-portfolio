@@ -1,8 +1,8 @@
-
 import { API_URL } from "./config";
+import type { Theme } from "../types";
 
 // Récupérer tous les thèmes
-export async function getThemes() {
+export async function getThemes(): Promise<Theme[]> {
   const response = await fetch(`${API_URL}/themes`);
 
   if (!response.ok) {
@@ -13,7 +13,7 @@ export async function getThemes() {
 }
 
 // Ajouter un thème
-export async function addTheme(title) {
+export async function addTheme(title: string): Promise<Theme> {
   const response = await fetch(`${API_URL}/themes`, {
     method: "POST",
     headers: {
@@ -30,7 +30,7 @@ export async function addTheme(title) {
 }
 
 // Supprimer un thème
-export async function deleteTheme(id) {
+export async function deleteTheme(id: number): Promise<unknown> {
   const response = await fetch(`${API_URL}/themes/${id}`, {
     method: "DELETE",
   });

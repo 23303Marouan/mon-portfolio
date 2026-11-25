@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import type { Tache as TacheType } from '../types';
 
 import Tache from '../components/tache';
 import Tacheform from '../components/tacheform';
@@ -7,9 +8,9 @@ import Tacheform from '../components/tacheform';
 export default function Taches() {
   const { isAdmin } = useAuth();
 
-  const [taches, setTaches] = useState(() => {
+  const [taches, setTaches] = useState<TacheType[]>(() => {
     const saved = localStorage.getItem("taches");
-    return saved ? JSON.parse(saved) : [];
+    return saved ? (JSON.parse(saved) as TacheType[]) : [];
   });
 
   // À chaque changement de "taches", on sauvegarde
@@ -17,11 +18,11 @@ export default function Taches() {
     localStorage.setItem("taches", JSON.stringify(taches));
   }, [taches]);
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     setTaches(taches.filter((tache) => tache.id !== id));
   };
 
-  const addTodo = (newTacheObject) => {
+  const addTodo = (newTacheObject: TacheType) => {
     setTaches([...taches, newTacheObject]);
   };
 

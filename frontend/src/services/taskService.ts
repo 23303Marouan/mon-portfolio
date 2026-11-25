@@ -1,8 +1,8 @@
-
 import { API_URL } from "./config";
+import type { Task } from "../types";
 
 // Récupérer toutes les tâches
-export async function getTasks() {
+export async function getTasks(): Promise<Task[]> {
   const response = await fetch(`${API_URL}/tasks`);
 
   if (!response.ok) {
@@ -13,7 +13,7 @@ export async function getTasks() {
 }
 
 // Ajouter une tâche
-export async function addTask(title, themeId) {
+export async function addTask(title: string, themeId: number | null): Promise<Task> {
   const response = await fetch(`${API_URL}/tasks`, {
     method: "POST",
     headers: {
@@ -30,7 +30,11 @@ export async function addTask(title, themeId) {
 }
 
 // Modifier une tâche
-export async function updateTask(id, title, themeId) {
+export async function updateTask(
+  id: number,
+  title: string,
+  themeId: number | null
+): Promise<Task> {
   const response = await fetch(`${API_URL}/tasks/${id}`, {
     method: "PUT",
     headers: {
@@ -47,7 +51,7 @@ export async function updateTask(id, title, themeId) {
 }
 
 // Supprimer une tâche
-export async function deleteTask(id) {
+export async function deleteTask(id: number): Promise<unknown> {
   const response = await fetch(`${API_URL}/tasks/${id}`, {
     method: "DELETE",
   });
