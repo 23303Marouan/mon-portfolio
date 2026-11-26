@@ -7,7 +7,6 @@ import '@flaticon/flaticon-uicons/css/brands/all.css';
 
 export default function Settings() {
   const [open, setOpen] = useState(false);
-
   return (
     <>
       <button

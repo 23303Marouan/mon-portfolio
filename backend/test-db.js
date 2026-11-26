@@ -1,15 +1,14 @@
+
 import dotenv from "dotenv";
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 
-dotenv.config({ path: "../.env" });
+dotenv.config({
+  path: new URL("./.env", import.meta.url),
+});
 
 const pool = new pg.Pool({
-  host: "localhost",
-  port: 5432,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
+  connectionString: process.env.DATABASE_URL,
 });
 
 const db = drizzle({ client: pool });
